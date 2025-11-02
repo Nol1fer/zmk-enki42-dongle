@@ -26,14 +26,14 @@
             key-positions = <46 47>;
             bindings = <&bootloader>;
             require-prior-idle-ms = <2000>;
-            layers = <3>
+            layers = <3>;
         };
 
         combo_reset_central {
             key-positions = <20 21>;
             bindings = <&out OUT_TOG>;
             require-prior-idle-ms = <2000>;
-            layers = <3>
+            layers = <3>;
         };
     };
 };
