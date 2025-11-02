@@ -17,6 +17,28 @@
 #define ADJUST 3
 
 / {
+    combos {
+        compatible = "zmk,combos";
+        timeout-ms = <20>;
+        require-prior-idle-ms = <250>;
+        
+        combo_reset_central {
+            key-positions = <46 47>;
+            bindings = <&bootloader>;
+            require-prior-idle-ms = <2000>;
+            layers = <3>
+        };
+
+        combo_reset_central {
+            key-positions = <20 21>;
+            bindings = <&out OUT_TOG>;
+            require-prior-idle-ms = <2000>;
+            layers = <3>
+        };
+    };
+};
+
+/ {
 
    // Activate ADJUST layer by pressing raise and lower
     conditional_layers {
