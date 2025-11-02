@@ -16,8 +16,6 @@
 #define RAISE 2
 #define ADJUST 3
 
-
-
 / {
 
    // Activate ADJUST layer by pressing raise and lower
@@ -41,7 +39,7 @@
             layers = <3>;
         };
 
-        combo_reset_central {
+        combo_toggle_usb_ble {
             key-positions = <20 21>;
             bindings = <&out OUT_TOG>;
             require-prior-idle-ms = <2000>;
