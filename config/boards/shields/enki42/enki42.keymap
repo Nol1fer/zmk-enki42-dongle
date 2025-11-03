@@ -16,10 +16,6 @@
 #define RAISE 2
 #define ADJUST 3
 
-&soft_off {
-    hold-time-ms = <3000>; // Only turn off it the key is held for 3 seconds or longer.
-};
-
 / {
 
    // Activate ADJUST layer by pressing raise and lower
@@ -46,6 +42,13 @@
         combo_toggle_usb_ble {
             key-positions = <20 21>;
             bindings = <&out OUT_TOG>;
+            require-prior-idle-ms = <2000>;
+            layers = <3>;
+        };
+
+        combo_soft_off {
+            key-positions = <38 39>;
+            bindings = <&soft_off>;
             require-prior-idle-ms = <2000>;
             layers = <3>;
         };
@@ -115,15 +118,15 @@
         adjust_layer {
 // ----------------------------------------------------------------------------------------------------------------------------
 // | BTCLR  |  BT1    |  BT2    |   BT3   |   BT4   |   BT5   |                  |      |      |       |      |       |       |
-// | EXTPWR |         |         |         |         |         |                  |      |      |       |      |       | EXTPWR|
-// | softof |         |         |         |         |         |                  |      |      |       |      |       |       |
+// | EXTPWR |         |         |         |         |         |                  |      |      |       |      |       |       |
+// |        |         |         |         |         |         |                  |      |      |       |      |       |       |
 // |        |         |         |         |         |         |         | |      |      |      |       |      |       |       |
 //                    |         |         |         |         |         | |      |      |      |       |      |
             display-name = "adjust";
             bindings = <
 &bt BT_CLR        &bt BT_SEL 0    &bt BT_SEL 1    &bt BT_SEL 2    &bt BT_SEL 3    &bt BT_SEL 4              &none &none &none &none &none &none
-&ext_power EP_OFF &none           &none           &none           &none           &none                     &none &none &none &none &none &ext_power EP_OFF 
-&soft_off             &none           &none           &none           &none           &none                     &none &none &none &none &none &none
+&ext_power EP_OFF &none           &none           &none           &none           &none                     &none &none &none &none &none &none 
+&none             &none           &none           &none           &none           &none                     &none &none &none &none &none &none
 &none             &none           &none           &none           &none           &none &none         &none &none &none &none &none &none &none
                                   &none           &none           &none           &none &none         &none &none &none &none &none
             >;
