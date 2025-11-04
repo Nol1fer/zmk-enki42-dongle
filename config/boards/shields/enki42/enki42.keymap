@@ -198,25 +198,24 @@
         combo_reset_central {
             key-positions = <46 47>;
             bindings = <&bootloader>;
-            require-prior-idle-ms = <2000>;
-            layers = <3>;
+            require-prior-idle-ms = <5000>;
         };
 
         combo_toggle_usb_ble {
             key-positions = <20 21>;
             bindings = <&out OUT_TOG>;
-            require-prior-idle-ms = <2000>;
-            layers = <3>;
+            require-prior-idle-ms = <5000>;
         };
 
         combo_soft_off {
             key-positions = <38 39>;
             bindings = <&soft_off>;
-            require-prior-idle-ms = <2000>;
-            layers = <3>;
+            require-prior-idle-ms = <5000>;
         };
     };
+};
 
+/ {
     keymap {
         compatible = "zmk,keymap";
 
@@ -226,7 +225,7 @@
 // |       |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   |       |
 // |       |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |       |
 // |       |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   |       |
-//               |     |      | CTRL | LOWER|  ENTER |  | SPACE | RAISE| CTRL  |     |     |
+//               |     |      |      |      |        |  |       |      |       |       |      |
             bindings = <
 _n _n   _n     _n     _n      _n                                _n     _n        _n       _n     _n     _n
 _n _ Q  _ W    _ E    _ R     _ T                               _ Y    _ U       _ I      _ O    _ P    _n
