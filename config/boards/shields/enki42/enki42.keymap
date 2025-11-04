@@ -35,152 +35,57 @@
 #define NSPC LC(LG(RIGHT))
 #define PSPC LC(LG(LEFT))
 
-// custom implementation of modified callum-mods,
-// which can be released on second keypress
-// and also work with swapper and/or tabber
-
-#define PARAM_1 0
-#define PARAM_2 0
-
-#define MACRO(NAME, COMPATIBLE, BINDING_CELLS, BINDINGS) \
-    NAME: NAME { \
-        compatible = COMPATIBLE; \
-        #binding-cells = <BINDING_CELLS>; \
-        wait-ms = <0>; \
-        tap-ms = <0>; \
-        bindings = \
-            <BINDINGS>; \
-    };
-
-#define MACRO_NO_PARAM(NAME, BINDINGS)  MACRO(NAME, "zmk,behavior-macro"          , 0, BINDINGS)
-#define MACRO_ONE_PARAM(NAME, BINDINGS) MACRO(NAME, "zmk,behavior-macro-one-param", 1, BINDINGS)
-#define MACRO_TWO_PARAM(NAME, BINDINGS) MACRO(NAME, "zmk,behavior-macro-two-param", 2, BINDINGS)
-
-#define MAX_TIMER __UINT32_MAX__ // around 50 days
-
-#define STICKY_FOREVER(NAME, BIND) \
-    NAME: NAME { \
-        compatible = "zmk,behavior-sticky-key"; \
-        #binding-cells = <1>; \
-        bindings = <BIND>; \
-        release-after-ms = <MAX_TIMER>; \
-        ignore-modifiers; \
-    };
-
-#define MODMORPH(NAME, NORMAL, MORPHED, MODS, KEEP_MODS) \
-    NAME: NAME { \
-        compatible = "zmk,behavior-mod-morph"; \
-        #binding-cells = <0>; \
-        bindings = <NORMAL>, <MORPHED>; \
-        mods = <(MODS)>; \
-        keep-mods = <(KEEP_MODS)>; \
-    };
-
 &sk {
-        release-after-ms = <60000>;
+	quick-release; // Avoids "THis" problem (double capitalization)
+    release-after-ms = <60000>;
 };
 
 / {
-    behaviors {
-        MACRO_ONE_PARAM(
-            m_release_key_twice,
-            &macro_release
-                &macro_param_1to1 &kp PARAM_1
-                &macro_param_1to1 &kp PARAM_1
-        )
+    combos {
+        compatible = "zmk,combos";
+        timeout-ms = <50>;
+        require-prior-idle-ms = <250>;
+        
+        combo_reset_central {
+            key-positions = <46 47>;
+            bindings = <&bootloader>;
+            require-prior-idle-ms = <2000>;
+            layers = <GFN>;
+        };
 
+        combo_toggle_usb_ble {
+            key-positions = <20 21>;
+            bindings = <&out OUT_TOG>;
+            require-prior-idle-ms = <2000>;
+            layers = <GFN>;
+        };
 
-        MACRO_ONE_PARAM(
-            m_press_key_twice,
-            &macro_press
-                &macro_param_1to1 &kp PARAM_1
-                &macro_param_1to1 &kp PARAM_1
-            &macro_pause_for_release
-            &macro_tap
-                &m_release_key_twice PARAM_1
-        )
-
-        STICKY_FOREVER(sticky_forever, &m_press_key_twice)
-
-        MODMORPH(
-            cm_gui,
-            &sticky_forever LGUI,
-            &m_release_key_twice LGUI,
-            MOD_LGUI,
-            MOD_LGUI
-        )
-
-        MODMORPH(
-            cm_alt,
-            &sticky_forever LALT,
-            &m_release_key_twice LALT,
-            MOD_LALT,
-            MOD_LALT
-        )
-
-        MODMORPH(
-            cm_ctrl,
-            &sticky_forever LCTRL,
-            &m_release_key_twice LCTRL,
-            MOD_LCTL,
-            MOD_LCTL
-        )
-
-        MODMORPH(
-            cm_sft,
-            &sticky_forever LSHIFT,
-            &m_release_key_twice LSHIFT,
-            MOD_LSFT,
-            MOD_LSFT
-        )
-
-        MACRO_TWO_PARAM(
-            m_hold_mod_press_key,
-            &macro_press
-                &macro_param_1to1 &kp PARAM_1
-            &macro_tap
-                &macro_param_2to1 &kp PARAM_2
-        )
-
-        MODMORPH(
-            tabber,
-            &m_hold_mod_press_key LCTRL TAB,
-            &kp TAB,
-            MOD_LCTL,
-            MOD_LCTL
-        )
-
-        MODMORPH(
-            swapper_win,
-            &m_hold_mod_press_key LALT TAB,
-            &kp TAB,
-            MOD_LALT,
-            MOD_LALT
-        )
-
-        MODMORPH(
-            swapper_mac,
-            &m_hold_mod_press_key LGUI TAB,
-            &kp TAB,
-            MOD_LGUI,
-            MOD_LGUI
-        )
-
-        MACRO_ONE_PARAM(
-            la,
-            &macro_tap
-                &kp 0 // do nothing, fire all sticky keys
-            &macro_press
-                &macro_param_1to1 &mo PARAM_1
-            &macro_pause_for_release
-            &macro_release
-                &macro_param_1to1 &mo PARAM_1
-                &kp LSHFT
-                &kp LCTRL
-                &kp LALT
-                &kp LGUI
-        )
+        combo_soft_off {
+            key-positions = <38 39>;
+            bindings = <&soft_off>;
+            require-prior-idle-ms = <2000>;
+            layers = <GFN>;
+        };
     };
+
+    macros {
+		lc: mo_layer_switch_with_an_embeded_cancel_tap_for_clearing_any_queued_sticky_mods_on_press {
+			compatible = "zmk,behavior-macro-one-param";
+			label = "mo_layer/cancel";
+			wait-ms = <0>;
+			tap-ms = <0>;
+			#binding-cells = <1>;
+			bindings =
+			<&macro_tap>,
+			<&kp K_CANCEL &macro_param_1to1>,
+			<&macro_press>,
+			<&mo MACRO_PLACEHOLDER>,
+			<&macro_pause_for_release>,
+			<&macro_param_1to1>,
+			<&macro_release>,
+			<&mo MACRO_PLACEHOLDER>;
+		};
+    }
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
@@ -190,32 +95,6 @@
         };
     };
 
-    combos {
-        compatible = "zmk,combos";
-        timeout-ms = <20>;
-        require-prior-idle-ms = <250>;
-        
-        combo_reset_central {
-            key-positions = <46 47>;
-            bindings = <&bootloader>;
-            require-prior-idle-ms = <5000>;
-        };
-
-        combo_toggle_usb_ble {
-            key-positions = <20 21>;
-            bindings = <&out OUT_TOG>;
-            require-prior-idle-ms = <5000>;
-        };
-
-        combo_soft_off {
-            key-positions = <38 39>;
-            bindings = <&soft_off>;
-            require-prior-idle-ms = <5000>;
-        };
-    };
-};
-
-/ {
     keymap {
         compatible = "zmk,keymap";
 
@@ -231,7 +110,7 @@ _n _n   _n     _n     _n      _n                                _n     _n       
 _n _ Q  _ W    _ E    _ R     _ T                               _ Y    _ U       _ I      _ O    _ P    _n
 _n _ A  _ S    _ D    _ F     _ G                               _ H    _ J       _ K      _ L    _ SEMI _n
 _n _ Z  _ X    _ C    _ V     _ B      _ C_MUTE      _n         _ N    _ M       _ COMMA  _ DOT  _ FSLH _n
-        _n     _n     _ CAPS  _ SPACE  &la NAV       &la SYM    _ LSFT &mo ALT   _n       _n
+        _n     _n     _ CAPS  _ SPACE  &lc NAV       &lc SYM    _ LSFT &mo ALT   _n       _n
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -252,17 +131,17 @@ _n _ LCTRL      _ Z          _ X          _ C         _ V  _n     _n  _n        
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n              _n
 _n _ N5         _ N1         _ N2         _ N3        _ N4            &out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR_ALL _n
 _n _ N0         _ N6         _ N7         _ N8        _ N9            _n           _n          _n          _n           _n               _n
-_n _ G          _ J          _ I          _ M         _ T  _n     _n  _ KP_NUM     _n          _n          &sys_reset   &bootloader      _n
+_n _ G          _ J          _ I          _ M         _ T  _n     _n  _ KP_NUM     _n          _n          _n           _n               _n
                      _n _n   _ ESC        _ RET       _t              _t           _t          _t  _n _n
             >;
         };
 
         sym_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n         _n
-_n _ N1         _ N2         _ N3         _ N4        _ N5            _ N6         _ N7         _ N8         _ N9         _ N0      _n
-_n _ SEMI       _ GRV        _ SQT        _ DQT       _ MINUS         _ PLUS       &cm_sft      &cm_ctrl     &cm_alt      &cm_gui   _n
-_n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL      _ RBKT       _ LS(RBKT)   _ PIP        _ BSLH    _n
+_n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
+_n _ N1         _ N2         _ N3         _ N4        _ N5            _ N6         _ N7         _ N8         _ N9         _ N0       _n
+_n _ SEMI       _ GRV        _ SQT        _ DQT       _ MINUS         _ PLUS       &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
+_n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL      _ RBKT       _ LS(RBKT)   _ PIP        _ BSLH     _n
                       _n _n  _t           _t          _t              _t           _t           _t  _n _n 
             >;
         };
@@ -270,8 +149,8 @@ _n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL   
         nav_layer {
             bindings = <
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
-_n &tabber      &swapper_win &swapper_mac _n          _ ESC           _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
-_n &cm_gui      &cm_alt      &cm_ctrl     &cm_sft     _ RET           _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
+_n _n           _n           _n           _n          _ ESC           _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
+_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ RET           _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
 _n _ PSPC       _ NSPC       &tog GAM     _ PSCRN     _ TAB  _n   _n  _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
                     _n _n    &mo CMD      _t          _t              _t           _t           _t  _n _n   
             >;
@@ -281,7 +160,7 @@ _n _ PSPC       _ NSPC       &tog GAM     _ PSCRN     _ TAB  _n   _n  _ TAB     
             bindings = <
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
 _n _ KP_N1      _ KP_N2      _ KP_N3      _ KP_N4     _ KP_N5         _ KP_N6      _ KP_N7      _ KP_N8      _ KP_N9      _ KP_N0    _n
-_n &cm_gui      &cm_alt      &cm_ctrl     &cm_sft     _ F11           _ F12        &cm_sft      &cm_ctrl     &cm_alt       &cm_gui   _n
+_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ F11           _ F12        &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
 _n _ F1         _ F2         _ F3         _ F4        _ F5  _n    _n  _ F6         _ F7         _ F8         _ F9         _ F10      _n
                      _n _n   _t           _t          _t              _t           _t           _t  _n _n  
             >;
@@ -302,7 +181,7 @@ _n _ RA(Z)      _ RA(X)      _ RA(C)      _ RA(V)     _ RA(B)  _n _n  _ RA(N)   
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n          _n
 _n _ MEH(Q)     _ MEH(W)     _ MEH(E)     _ MEH(R)    _ MEH(T)        _ MEH(Y)     _ C_VOL_DN   _ C_MUTE     _ C_VOL_UP   _ MEH(P)    _n
 _n _ MEH(A)     _ MEH(S)     _ MEH(D)     _ MEH(F)    _ MEH(G)        _ MEH(H)     _ C_PREV     _ C_PP       _ C_NEXT     _ MEH(SEMI) _n
-_n &bootloader  _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)     _ MEH(M)     _ MEH(COMMA) _ MEH(DOT)   &bootloader _n
+_n _n           _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)     _ MEH(M)     _ MEH(COMMA) _ MEH(DOT)   _n          _n
                     _n _n    _t           _t          _t              _ LGUI       _t           _t  _n _n  
             >;
         };
