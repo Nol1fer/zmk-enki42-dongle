@@ -85,7 +85,7 @@
 			<&macro_release>,
 			<&mo MACRO_PLACEHOLDER>;
 		};
-    }
+    };
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
