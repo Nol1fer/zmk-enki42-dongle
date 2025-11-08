@@ -4,11 +4,15 @@
  * SPDX-License-Identifier: MIT
  */
 
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1500  // default: 600
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20    // default: 10
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define _ &kp
 #define _n &none
@@ -38,6 +42,14 @@
 &sk {
 	quick-release; // Avoids "THis" problem (double capitalization)
     release-after-ms = <60000>;
+};
+
+&mmv {
+    time-to-max-speed-ms = <1000>;
+};
+
+&msc {
+    time-to-max-speed-ms = <600>;
 };
 
 / {
@@ -106,7 +118,7 @@
 // |       |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   |       |
 //               |     |      |      |      |        |  |       |      |       |       |      |
             bindings = <
-_n _n   _n     _n     _n      _n                                _n     _n        _n       _n     _n     _n
+_n _n   _n     _n     _n      _n                                _n     _n        _n       _n     _n     &tog GAM
 _n _ Q  _ W    _ E    _ R     _ T                               _ Y    _ U       _ I      _ O    _ P    _n
 _n _ A  _ S    _ D    _ F     _ G                               _ H    _ J       _ K      _ L    _ SEMI _n
 _n _ Z  _ X    _ C    _ V     _ B      _ C_MUTE      _n         _ N    _ M       _ COMMA  _ DOT  _ FSLH _n
@@ -119,8 +131,8 @@ _n _ Z  _ X    _ C    _ V     _ B      _ C_MUTE      _n         _ N    _ M      
         gam_layer {
             bindings = <
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n      _n            
-_n _ TAB        _ Q          _ W          _ E         _ R             _n           _n           _ UP         _n          _ TAB   _n
-_n _ LSFT       _ A          _ S          _ D         _ F             _n           _ LEFT       _ DOWN       _ RIGHT     _ RSFT  _n
+_n _ TAB        _ Q          _ W          _ E         _ R             _n           _n           &mmv MOVE_UP         _n          _ TAB   _n
+_n _ LSFT       _ A          _ S          _ D         _ F             _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _ RSFT  _n
 _n _ LCTRL      _ Z          _ X          _ C         _ V  _n     _n  _n           _n           _n           _n          _ RCTRL _n 
                _n     _n     _ LALT       _ SPACE     &mo GFN         &tog GAM     _ SPACE      _ PSCRN      _n     _n
             >;
@@ -148,11 +160,11 @@ _n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL   
 
         nav_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
-_n _n           _n           _n           _n          _ ESC           _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
-_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ RET           _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
-_n _ PSPC       _ NSPC       &tog GAM     _ PSCRN     _ TAB  _n   _n  _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
-                    _n _n    &mo CMD      _t          _t              _t           _t           _t  _n _n   
+_n _n           _n           _n           _n          _n                      _n           _n           _n           _n           _n         _n
+_n _ CAPS       &mkp RCLK    &mkp MCLK    &mkp LCLK   &msc SCRL_UP            _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
+_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   &msc SCRL_DOWN          _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
+_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _ ESC  _n         _n    _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
+                    _n _n    &mo CMD      _t          _t                      _t           _t           _t  _n _n   
             >;
         };
 
@@ -161,7 +173,7 @@ _n _ PSPC       _ NSPC       &tog GAM     _ PSCRN     _ TAB  _n   _n  _ TAB     
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
 _n _ KP_N1      _ KP_N2      _ KP_N3      _ KP_N4     _ KP_N5         _ KP_N6      _ KP_N7      _ KP_N8      _ KP_N9      _ KP_N0    _n
 _n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ F11           _ F12        &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
-_n _ F1         _ F2         _ F3         _ F4        _ F5  _n    _n  _ F6         _ F7         _ F8         _ F9         _ F10      _n
+_n _ F1         _ F2         _ F3         _ F4        _ F5  _n    _n  _ F10        _ F9         _ F8         _ F7         _ F6       _n
                      _n _n   _t           _t          _t              _t           _t           _t  _n _n  
             >;
         };
