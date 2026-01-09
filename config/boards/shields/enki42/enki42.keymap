@@ -20,12 +20,12 @@
 
 #define DEF 0
 #define GAM 1
-#define CMD 2
+#define GFN 2
 #define SYM 3
 #define NAV 4
 #define NUM 5
 #define ALT 6
-#define GFN 7
+#define CMD 7
 
 #define MEH(key) LS(LC(LA(key)))
 
