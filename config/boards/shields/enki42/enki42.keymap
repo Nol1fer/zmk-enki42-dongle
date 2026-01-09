@@ -20,12 +20,12 @@
 
 #define DEF 0
 #define GAM 1
-#define GFN 2
+#define CMD 2
 #define SYM 3
 #define NAV 4
 #define NUM 5
 #define ALT 6
-#define CMD 7
+#define GFN 7
 
 #define MEH(key) LS(LC(LA(key)))
 
@@ -118,11 +118,11 @@
 // |       |  Z  |  X  |  C   |  V   |  B   |  MUTE  |  |       |  N   |  M    |  ,    |  .   |   /   |       |
 //               |     |      |      |      |        |  |       |      |       |       |      |
             bindings = <
-_n _n   _n     _n     _n      _n                                _n     _n        _n       _n     _n     &tog GAM
-_n _ Q  _ W    _ E    _ R     _ T                               _ Y    _ U       _ I      _ O    _ P    _n
-_n _ A  _ S    _ D    _ F     _ G                               _ H    _ J       _ K      _ L    _ SEMI _n
-_n _ Z  _ X    _ C    _ V     _ B      _ C_MUTE      _n         _ N    _ M       _ COMMA  _ DOT  _ FSLH _n
-        _n     _n     _ CAPS  _ SPACE  &lc NAV       &lc SYM    _ LSFT &mo ALT   _n       _n
+_n _n   _n     _n     _n       _n                                _n      _n        _n       _n     _n     _n     
+_n _ Q  _ W    _ E    _ R      _ T                               _ Y     _ U       _ I      _ O    _ P    _n
+_n _ A  _ S    _ D    _ F      _ G                               _ H     _ J       _ K      _ L    _ SEMI _n
+_n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M       _ COMMA  _ DOT  _ FSLH _n
+        _n     _n     &tog GAM _ SPACE  &lc NAV                  &lc SYM &mo GFN   &mo ALT  _n     _n
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -130,21 +130,21 @@ _n _ Z  _ X    _ C    _ V     _ B      _ C_MUTE      _n         _ N    _ M      
 
         gam_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n      _n            
-_n _ TAB        _ Q          _ W          _ E         _ R             _n           _n           &mmv MOVE_UP         _n          _ TAB   _n
-_n _ LSFT       _ A          _ S          _ D         _ F             _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _ RSFT  _n
-_n _ LCTRL      _ Z          _ X          _ C         _ V  _n     _n  _n           _n           _n           _n          _ RCTRL _n 
-               _n     _n     _ LALT       _ SPACE     &mo GFN         &tog GAM     _ SPACE      _ PSCRN      _n     _n
+_n _n           _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
+_n _ TAB        _n           &msc SCRL_UP &msc SCRL_DOWN  _ R             _ ESC        _n             &mmv MOVE_UP   _n              _ TAB   _n
+_n _ LSFT       &mkp RCLK    &mkp MCLK    &mkp LCLK       _ F             _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _ RSFT  _n
+_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)         _ ESC  _n   _n  _n           _n             _n             _n              _ RCTRL _n 
+               _n     _n     &tog GAM     _ SPACE         _ LCTRL         _n          _ SPACE         _n             _n              _n
             >;
         };
 
         gfn_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n              _n
-_n _ N5         _ N1         _ N2         _ N3        _ N4            &out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR_ALL _n
-_n _ N0         _ N6         _ N7         _ N8        _ N9            _n           _n          _n          _n           _n               _n
-_n _ G          _ J          _ I          _ M         _ T  _n     _n  _ KP_NUM     _n          _n          _n           _n               _n
-                     _n _n   _ ESC        _ RET       _t              _t           _t          _t  _n _n
+_n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n          _n
+_n _ MEH(Q)     _ MEH(W)     _ MEH(E)     _ MEH(R)    _ MEH(T)        _ MEH(Y)     _ C_VOL_DN   _ C_MUTE     _ C_VOL_UP   _ MEH(P)    _n
+_n _ MEH(A)     _ MEH(S)     _ MEH(D)     _ MEH(F)    _ MEH(G)        _ MEH(H)     _ C_PREV     _ C_PP       _ C_NEXT     _ MEH(SEMI) _n
+_n _n           _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)     _ MEH(M)     _ MEH(COMMA) _ MEH(DOT)   _n          _n
+                    _n _n    _t           _t          _t              _ LGUI       _t           _t  _n _n  
             >;
         };
 
@@ -161,10 +161,10 @@ _n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL   
         nav_layer {
             bindings = <
 _n _n           _n           _n           _n          _n                      _n           _n           _n           _n           _n         _n
-_n _ CAPS       &mkp RCLK    &mkp MCLK    &mkp LCLK   &msc SCRL_UP            _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
-_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   &msc SCRL_DOWN          _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
-_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _ ESC  _n         _n    _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
-                    _n _n    &mo CMD      _t          _t                      _t           _t           _t  _n _n   
+_n _ CAPS       _n           _n           _n          _n                      _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
+_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _n                      _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
+_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _n     _n         _n    _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
+                    _n &mo CMD _t         _t          _t                      _t           _t           _t  _n _n   
             >;
         };
 
@@ -190,11 +190,11 @@ _n _ RA(Z)      _ RA(X)      _ RA(C)      _ RA(V)     _ RA(B)  _n _n  _ RA(N)   
 
         cmd_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n          _n
-_n _ MEH(Q)     _ MEH(W)     _ MEH(E)     _ MEH(R)    _ MEH(T)        _ MEH(Y)     _ C_VOL_DN   _ C_MUTE     _ C_VOL_UP   _ MEH(P)    _n
-_n _ MEH(A)     _ MEH(S)     _ MEH(D)     _ MEH(F)    _ MEH(G)        _ MEH(H)     _ C_PREV     _ C_PP       _ C_NEXT     _ MEH(SEMI) _n
-_n _n           _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)     _ MEH(M)     _ MEH(COMMA) _ MEH(DOT)   _n          _n
-                    _n _n    _t           _t          _t              _ LGUI       _t           _t  _n _n  
+_n _n           _n           _n           _n          _n              _n           _n           _n           _n          _n              _n
+_n _ N5         _ N1         _ N2         _ N3        _ N4            &out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR_ALL _n
+_n _ N0         _ N6         _ N7         _ N8        _ N9            _n           _n          _n          _n           _n               _n
+_n _ G          _ J          _ I          _ M         _ T  _n     _n  _ KP_NUM     _n          _n          _n           _n               _n
+                     _n _n   _ ESC        _ RET       _t              _t           _t          _t  _n _n
             >;
         };
 
