@@ -133,18 +133,18 @@ _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M    
 _n _n           _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
 _n _ TAB        _n           &msc SCRL_UP &msc SCRL_DOWN  _ R             _ ESC        _n             &mmv MOVE_UP   _n              _ TAB   _n
 _n _ LSFT       &mkp RCLK    &mkp MCLK    &mkp LCLK       _ F             _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _ RSFT  _n
-_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)         _ ESC  _n   _n  _n           _n             _n             _n              _ RCTRL _n 
-               _n     _n     &tog GAM     _ SPACE         _ LCTRL         _n          _ SPACE         _n             _n              _n
+_n _t          _t            _t           _t              _ ESC  _n   _n  _n           _n             _n             _n              _ RCTRL _n 
+               _n     _n     &tog GAM     _t              _t              _t           _t             _t             _n              _n
             >;
         };
 
         gfn_layer {
             bindings = <
-_n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n          _n
-_n _ MEH(Q)     _ MEH(W)     _ MEH(E)     _ MEH(R)    _ MEH(T)        _ MEH(Y)     _ C_VOL_DN   _ C_MUTE     _ C_VOL_UP   _ MEH(P)    _n
-_n _ MEH(A)     _ MEH(S)     _ MEH(D)     _ MEH(F)    _ MEH(G)        _ MEH(H)     _ C_PREV     _ C_PP       _ C_NEXT     _ MEH(SEMI) _n
-_n _n           _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)     _ MEH(M)     _ MEH(COMMA) _ MEH(DOT)   _n          _n
-                    _n _n    _t           _t          _t              _ LGUI       _t           _t  _n _n  
+_n _n           _n           _n           _n          _n                  _n           _n           _n           _n           _n          _n
+_n _n           _ C_VOL_DN   _ C_MUTE     _ C_VOL_UP  _n                  _n           _ F13        _ F14        _ F15        _ F16       _n
+_n _n           _ C_PREV     _ C_PP       _ C_NEXT    _n                  _n           _ F17        _ F18        _ F19        _ F20       _n
+_n _n           _n           _n           _n          _n       _n _n      _n           _ F21        _ F22        _ F23        _ F24       _n
+                    _n _n    _t           _t          _t                  _t           _t           _t  _n _n  
             >;
         };
 
@@ -153,7 +153,7 @@ _n _n           _ MEH(X)     _ MEH(C)     _ MEH(V)    _ MEH(B) _n _n  _ MEH(N)  
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
 _n _ N1         _ N2         _ N3         _ N4        _ N5            _ N6         _ N7         _ N8         _ N9         _ N0       _n
 _n _ SEMI       _ GRV        _ SQT        _ DQT       _ MINUS         _ PLUS       &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
-_n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL      _ RBKT       _ LS(RBKT)   _ PIP        _ BSLH     _n
+_n _ BSL        _ APOS       _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL      _ RBKT       _ LS(RBKT)   _ PIP        _ BSLH     _n
                       _n _n  _t           _t          _t              _t           _t           _t  _n _n 
             >;
         };
@@ -161,9 +161,9 @@ _n _ BSL        _n           _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL   
         nav_layer {
             bindings = <
 _n _n           _n           _n           _n          _n                      _n           _n           _n           _n           _n         _n
-_n _ CAPS       _n           _n           _n          _n                      _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
+_n _n           _n           _n           _n          _n                      _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
 _n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _n                      _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
-_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _n     _n         _n    _ TAB        _ BSPC       _ DEL        _ APOS       _ KP_NUM   _n        
+_n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _n     _n         _n    _ TAB        _ BSPC       _ DEL        _ CAPS       _ KP_NUM   _n        
                     _n &mo CMD _t         _t          _t                      _t           _t           _t  _n _n   
             >;
         };
