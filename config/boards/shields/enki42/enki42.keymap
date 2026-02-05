@@ -122,7 +122,7 @@ _n _n   _n     _n     _n       _n                                _n      _n     
 _n _ Q  _ W    _ E    _ R      _ T                               _ Y     _ U       _ I      _ O    _ P    _n
 _n _ A  _ S    _ D    _ F      _ G                               _ H     _ J       _ K      _ L    _ SEMI _n
 _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M       _ COMMA  _ DOT  _ FSLH _n
-        _n     _n     &tog GAM _ SPACE  &lc NAV                  &lc SYM &mo GFN   &mo ALT  _n     _n
+        _n     _n     &mo GAM _ SPACE  &lc NAV                  &lc SYM &mo GFN   &mo ALT  _n     _n
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -130,11 +130,11 @@ _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M    
 
         gam_layer {
             bindings = <
-_n _n           _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
-_n _ TAB        _n           &msc SCRL_UP &msc SCRL_DOWN  _ R             _ ESC        _n             &mmv MOVE_UP   _n              _ TAB   _n
-_n _ LSFT       &mkp RCLK    &mkp MCLK    &mkp LCLK       _ F             _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _ RSFT  _n
-_n _t          _t            _t           _t              _ ESC  _n   _n  _n           _n             _n             _n              _ RCTRL _n 
-               _n     _n     &tog GAM     _t              _t              _t           _t             _t             _n              _n
+_n _n          _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
+_n _n          _n           &msc SCRL_UP &msc SCRL_DOWN  _n              _n           _n             &mmv MOVE_UP   _n              _n      _n
+_n _n          &mkp RCLK    &mkp MCLK    &mkp LCLK       _n              _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _n      _n
+_n _n          _n            _n           _n             _n     _n   _n  _n           _n             _n             _n              _n      _n 
+               _n     _n     _t           _t             _t              _t           _t             _t             _n              _n
             >;
         };
 
@@ -161,7 +161,7 @@ _n _ BSL        _ APOS       _ LS(LBKT)   _ LBKT      _ UNDER  _n _n  _ EQUAL   
         nav_layer {
             bindings = <
 _n _n           _n           _n           _n          _n                      _n           _n           _n           _n           _n         _n
-_n _n           _n           _n           _n          _n                      _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
+_n _n           _n           _n           _n          _ ESC                   _ ESC        _ HOME       _ UP         _ END        _ PG_UP    _n           
 _n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _n                      _ RET        _ LEFT       _ DOWN       _ RIGHT      _ PG_DN    _n
 _n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _n     _n         _n    _ TAB        _ BSPC       _ DEL        _ CAPS       _ KP_NUM   _n        
                     _n &mo CMD _t         _t          _t                      _t           _t           _t  _n _n   
