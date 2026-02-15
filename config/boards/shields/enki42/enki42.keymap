@@ -141,8 +141,8 @@ _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M    
         gam_layer {
             bindings = <
 _n _n          _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
-_n _n          _n           &msc SCRL_UP &msc SCRL_DOWN  _n              _n           _n             &mmv MOVE_UP   _n              _n      _n
-_n _n          &mkp RCLK    &mkp MCLK    &mkp LCLK       _n              _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _n      _n
+_n _n          _n           &msc SCRL_UP &msc SCRL_DOWN  _ ESC           _n           _n             &mmv MOVE_UP   _n              _n      _n
+_n _n          &mkp RCLK    &mkp MCLK    &mkp LCLK       _ RET           _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _n      _n
 _n _ LC(Z)     _ LC(X)      _ LC(C)      _ LC(V)         _n     _n   _n  _n           _n             _n             _n              _n      _n 
                _n     _n     _t           _t             _t              _t           _t             _t             _n              _n
             >;
