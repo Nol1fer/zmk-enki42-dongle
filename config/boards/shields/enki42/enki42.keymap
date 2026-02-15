@@ -122,7 +122,7 @@ _n _n   _n     _n     _n       _n                                _n      _n     
 _n _ Q  _ W    _ E    _ R      _ T                               _ Y     _ U       _ I      _ O    _ P    _n
 _n _ A  _ S    _ D    _ F      _ G                               _ H     _ J       _ K      _ L    _ SEMI _n
 _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M       _ COMMA  _ DOT  _ FSLH _n
-        _n     _n     &mo GAM _ SPACE  &lc NAV                  &lc SYM &mo GFN   &mo ALT  _n     _n
+        _n     _n     &mkp LCLK  &lt GAM SPACE  &lc NAV          &lc SYM  &lt GFN &key_repeat  &mo ALT  _n     _n
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
@@ -133,7 +133,7 @@ _n _ Z  _ X    _ C    _ V      _ B      _ C_MUTE      _n         _ N     _ M    
 _n _n          _n           _n           _n              _n              _n           _n             _n             _n              _n      _n            
 _n _n          _n           &msc SCRL_UP &msc SCRL_DOWN  _n              _n           _n             &mmv MOVE_UP   _n              _n      _n
 _n _n          &mkp RCLK    &mkp MCLK    &mkp LCLK       _n              _n           &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT _n      _n
-_n _n          _n            _n           _n             _n     _n   _n  _n           _n             _n             _n              _n      _n 
+_n _ LC(Z)     _ LC(X)      _ LC(C)      _ LC(V)         _n     _n   _n  _n           _n             _n             _n              _n      _n 
                _n     _n     _t           _t             _t              _t           _t             _t             _n              _n
             >;
         };
@@ -172,8 +172,8 @@ _n _ LC(Z)       _ LC(X)     _ LC(C)      _ LC(V)     _n     _n         _n    _ 
             bindings = <
 _n _n           _n           _n           _n          _n              _n           _n           _n           _n           _n         _n
 _n _ KP_N1      _ KP_N2      _ KP_N3      _ KP_N4     _ KP_N5         _ KP_N6      _ KP_N7      _ KP_N8      _ KP_N9      _ KP_N0    _n
-_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ F11           _ F12        &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
-_n _ F1         _ F2         _ F3         _ F4        _ F5  _n    _n  _ F10        _ F9         _ F8         _ F7         _ F6       _n
+_n &sk LGUI     &sk LALT     &sk LCTRL    &sk LSHFT   _ F11           _ F10        &sk LSHFT    &sk LCTRL    &sk LALT     &sk LGUI   _n
+_n _ F1         _ F2         _ F3         _ F4        _ F5  _n    _n  _ F12        _ F9         _ F8         _ F7         _ F6       _n
                      _n _n   _t           _t          _t              _t           _t           _t  _n _n  
             >;
         };
